@@ -6,12 +6,12 @@ let app = express();
 
 app.use(morgan('dev'));
 
-app.use(express.static(path.join(__dirname, '../public')));
-
 app.use(parser.json());
+
+app.use(express.static(path.join(__dirname, '../public')));
 
 let port = 3004;
 
 app.listen(port, function() {
-  console.log('Listening on port ${port}!');
+  console.log(`Listening on port ${port}!`);
 });
