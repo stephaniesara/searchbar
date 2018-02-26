@@ -24,16 +24,12 @@ class SideBar extends React.Component {
 
   renderSearch() {
     if (this.state.showSearch) {
-      return renderFullSearchBar();
+
     }
   }
 
-  renderFullSearchBar() {
-    return (
-        <Name />
-        <Cuisine />
-        <City
-      )
+  handleSearch(e) {
+
   }
 
   render() {
@@ -42,9 +38,10 @@ class SideBar extends React.Component {
           <button 
             id="search"
             type="button"
-            onclick={this.showSearch.bind(this)}>
+            onClick={this.showSearch.bind(this)}>
             {this.state.searchButtonVal}
           </button>
+          {this.renderSearch.call(this)}
           <Recommended />
         </div>
       )
