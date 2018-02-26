@@ -18,28 +18,30 @@ class SideBar extends React.Component {
   showSearch() {
     this.setState({
       showSearch: !this.state.showSearch,
-      searchButtonVal: this.state.showSearch ? 'Hide search' : 'Search restaurants'
-    })
+      searchButtonVal: this.state.showSearch ? 'Search restaurants' : 'Hide search'
+    });
+  }
+
+  executeSearch(event) {
+    console.log(event.target.name.value);
+    console.log('Search executed!');
   }
 
   renderSearch() {
     if (this.state.showSearch) {
-
+      return <Search executeSearch={this.executeSearch.bind(this)} />;
     }
-  }
-
-  handleSearch(e) {
-
   }
 
   render() {
     return (
         <div>
           <button 
-            id="search"
+            id="showSearch"
             type="button"
-            onClick={this.showSearch.bind(this)}>
-            {this.state.searchButtonVal}
+            onClick={this.showSearch.bind(this)}
+          >
+          {this.state.searchButtonVal}
           </button>
           {this.renderSearch.call(this)}
           <Recommended />
