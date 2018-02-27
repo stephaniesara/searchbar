@@ -23,7 +23,10 @@ class SideBar extends React.Component {
   }
 
   executeSearch(searchState) {
+    var search = document.getElementById('search');
     console.log(searchState);
+    console.log(search.$.checked);
+    console.log(search.$$.checked);
     console.log('Search executed!');
   }
 

@@ -16,8 +16,10 @@ class Search extends React.Component {
   }
 
   handleChange(event) {
+    var input = event.target;
+    var val = input.type === 'checkbox' ? input.checked : input.value;
     this.setState({
-      [event.target.id]: event.target.value
+      [input.id]: val
     });
   }
 
