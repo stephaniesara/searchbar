@@ -2,6 +2,7 @@ import React from 'react';
 import Search from './search.jsx';
 import Recommended from './recommended.jsx';
 import Results from './results.jsx';
+import RestaurantEntry from './restaurantentry.jsx';
 
 
 class SideBar extends React.Component {
@@ -36,6 +37,14 @@ class SideBar extends React.Component {
     }
   }
 
+  renderRestaurants() {
+    if (this.state.showSearch) {
+      return <Results />;
+    } else {
+      return <Recommended />;
+    }
+  }
+
   render() {
     return (
         <div>
@@ -47,7 +56,6 @@ class SideBar extends React.Component {
           {this.state.searchButtonVal}
           </button>
           {this.renderSearch.call(this)}
-          <Recommended />
         </div>
       )
   }
