@@ -1,5 +1,13 @@
 import React from 'react';
 
-class RestaurantEntry extends React.Component {
-  
+const RestaurantEntry = props => {
+  return (
+      <div className="restaurantentry">
+        {props.info.name}<br/>
+        {props.info.cuisine}<br/>
+        {props.info.price}
+      </div>
+    );
 }
+
+export default RestaurantEntry;

@@ -1,6 +1,5 @@
 import React from 'react';
 import Search from './search.jsx';
-import Recommended from './recommended.jsx';
 import Results from './results.jsx';
 import RestaurantEntry from './restaurantentry.jsx';
 
@@ -10,10 +9,11 @@ class SideBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      recommendations: props.stubdata,
+      searchResults: undefined,
       showSearch: false,
       searchButtonVal: 'Search restaurants'
     };
-    //http req for first 5 recommended restaurants
   }
 
   showSearch() {
@@ -24,10 +24,6 @@ class SideBar extends React.Component {
   }
 
   executeSearch(searchState) {
-    var search = document.getElementById('search');
-    console.log(searchState);
-    console.log(search.$.checked);
-    console.log(search.$$.checked);
     console.log('Search executed!');
   }
 
@@ -38,11 +34,11 @@ class SideBar extends React.Component {
   }
 
   renderRestaurants() {
-    if (this.state.showSearch) {
-      return <Results />;
-    } else {
-      return <Recommended />;
-    }
+    return (
+        <Results
+          restaurants={this.state.showSearch ? this.state.searchResults : this.state.recommendations}
+        />
+      );
   }
 
   render() {
@@ -56,6 +52,7 @@ class SideBar extends React.Component {
           {this.state.searchButtonVal}
           </button>
           {this.renderSearch.call(this)}
+          {this.renderRestaurants.call(this)}
         </div>
       )
   }
