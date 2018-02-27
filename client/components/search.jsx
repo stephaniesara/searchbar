@@ -10,9 +10,6 @@ class Search extends React.Component {
 
   componentDidMount() {
     var search = document.getElementById('search');
-    console.log(search);
-    console.log(typeof search);
-    console.log(search.getElementsByTagName('input'));
     Array.from(search.getElementsByTagName('input')).forEach(el => {
       el.addEventListener('change', this.handleChange.bind(this));
     });
@@ -26,7 +23,9 @@ class Search extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log(this.state);
+    console.log(event.target.name.value);
+    console.log(event.target.cuisine.value);
+    console.log(event.target.byob.value);
     this.executeSearch(event);
     event.preventDefault();
   }
@@ -35,18 +34,25 @@ class Search extends React.Component {
     return (
         <form id="search" onSubmit={this.handleSubmit.bind(this)}>
           <fieldset>
-            Name:
-            <input type="text" name="name" value={this.state.name} />
-            Cuisine:
-            <input type="text" name="cuisine" value={this.state.cuisine} />
-            City:
-            <input type="text" name="city" value={this.state.city} />
-            Price:
-            <input type="checkbox" name="price" value={this.state.price} />
-            Vegetarian:
-            <input type="checkbox" name="vegetarian" value={this.state.vegetarian} />
-            BYOB:
-            <input type="checkbox" name="byob" value={this.state.byob} />
+            <label htmlFor="name">Name:</label>
+            <input type="text" id="name" />
+
+            <label htmlFor="cuisine">Cuisine:</label>
+            <input type="text" id="cuisine" />
+
+            <label htmlFor="city">City:</label>
+            <input type="text" id="city" />
+
+            <label htmlFor="price">Price:</label>
+            <input type="checkbox" id="price" />
+            
+            <label htmlFor="vegetarian">Vegetarian:</label>
+            <input type="checkbox" id="vegetarian" />
+
+            <label htmlFor="byob">BYOB:</label>
+            <input type="checkbox" id="byob" />
+
+            <label></label>
             <input type="submit" value="Find tables!" />
           </fieldset>
         </form>

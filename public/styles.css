@@ -1,0 +1,14 @@
+#search input {
+  display: inline-block;
+  float: left;
+}
+
+#search label {
+  display: inline-block;
+  float: left;
+  clear: left;
+}
+
+#search {
+  width: 25%;
+}
