@@ -22,8 +22,8 @@ class SideBar extends React.Component {
     });
   }
 
-  executeSearch(event) {
-    console.log(event.target.name.value);
+  executeSearch(searchState) {
+    console.log(searchState);
     console.log('Search executed!');
   }
 
