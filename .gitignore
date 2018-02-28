@@ -1,6 +1,9 @@
 ## MAC files ##
 .DS_Store
 
+## app.js compiled ##
+public/app.js
+
 ## Example ##
 example/
 
@@ -24,7 +27,6 @@ coverage
 .grunt
 
 # Compiled Dirs (http://nodejs.org/api/addons.html)
-public/
 build/
 dist/
 
