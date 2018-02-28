@@ -5,7 +5,8 @@ module.exports = [
     city: 'Bickford Park',
     price: '$$$',
     vegetarian: false,
-    byob: false
+    byob: false,
+    iterator: 1,
   }, 
   {
     name: 'Sansotei',
@@ -13,7 +14,8 @@ module.exports = [
     city: 'Downtown Core',
     price: '$$$$',
     vegetarian: true,
-    byob: false
+    byob: false,
+    iterator: 2,
   },
   {
     name: 'Lamesa Filipino Kitchen',
@@ -21,7 +23,8 @@ module.exports = [
     city: 'Niagara',
     price: '$$',
     vegetarian: false,
-    byob: true
+    byob: true,
+    iterator: 3,
   },
   {
     name: 'La Bella Managua',
@@ -29,7 +32,8 @@ module.exports = [
     city: 'Christie Pits',
     price: '$$$',
     vegetarian: false,
-    byob: false
+    byob: false,
+    iterator: 4,
   },
   {
     name: 'Thoroughbred Food & Drink',
@@ -37,6 +41,7 @@ module.exports = [
     city: 'Entertainment District',
     price: '$',
     vegetarian: false,
-    byob: false
+    byob: false,
+    iterator: 5,
   }
 ];
