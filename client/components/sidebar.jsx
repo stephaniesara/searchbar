@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import Search from './search.jsx';
 import Results from './results.jsx';
 import RestaurantEntry from './restaurantentry.jsx';
@@ -24,6 +25,20 @@ class SideBar extends React.Component {
   }
 
   executeSearch(searchState) {
+    console.log(searchState);
+    axios({
+        url: 'search/restaurants',
+        method: 'post',
+        data: searchState
+      })
+      .then(data => {
+        console.log(this);
+        console.log('Success!');
+        console.log(data);
+      })
+      .catch(err => {
+        console.log('Error retrieving search results');
+      })
     console.log('Search executed!');
   }
 

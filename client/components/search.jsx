@@ -9,12 +9,13 @@ class Search extends React.Component {
     this.state = {};
     this.stringFields = ['Name', 'Cuisine', 'City']; 
     this.checkboxFields = ['Vegetarian', 'BYOB'];
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
     var search = document.getElementById('search');
     Array.from(search.getElementsByTagName('input')).forEach(el => {
-      el.addEventListener('change', this.handleChange.bind(this));
+      el.addEventListener('change', this.handleChange);
     });
   }
 
@@ -27,8 +28,8 @@ class Search extends React.Component {
   }
 
   handleSubmit(event) {
-    this.executeSearch(this.state);
     event.preventDefault();
+    this.executeSearch(this.state);
   }
 
   render() {
