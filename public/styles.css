@@ -1,0 +1,15 @@
+#search input {
+  display: inline-block;
+}
+
+#search label {
+  display: inline-block;
+}
+
+#search div {
+  display: block;
+}
+
+#search {
+  width: 25%;
+}

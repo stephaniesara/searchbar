@@ -1,0 +1,47 @@
+module.exports = [
+  {
+    name: 'Marinellas Italian Restaurant',
+    cuisine: 'Italian',
+    city: 'Bickford Park',
+    price: '$$$',
+    vegetarian: false,
+    byob: false,
+    iterator: 1,
+  }, 
+  {
+    name: 'Sansotei',
+    cuisine: 'Japanese',
+    city: 'Downtown Core',
+    price: '$$$$',
+    vegetarian: true,
+    byob: false,
+    iterator: 2,
+  },
+  {
+    name: 'Lamesa Filipino Kitchen',
+    cuisine: 'Filipino',
+    city: 'Niagara',
+    price: '$$',
+    vegetarian: false,
+    byob: true,
+    iterator: 3,
+  },
+  {
+    name: 'La Bella Managua',
+    cuisine: 'Latin',
+    city: 'Christie Pits',
+    price: '$$$',
+    vegetarian: false,
+    byob: false,
+    iterator: 4,
+  },
+  {
+    name: 'Thoroughbred Food & Drink',
+    cuisine: 'American',
+    city: 'Entertainment District',
+    price: '$',
+    vegetarian: false,
+    byob: false,
+    iterator: 5,
+  }
+];
