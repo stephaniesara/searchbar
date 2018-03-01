@@ -26,16 +26,12 @@ class SideBar extends React.Component {
   }
 
   executeSearch(searchState) {
-    console.log(searchState);
     axios({
         url: 'search/restaurants',
         method: 'post',
         data: searchState
       })
       .then(result => {
-        console.log('Success!');
-        console.log(result.data);
-        console.log(this.state);
         this.setState({
           searchResults: result.data,
           showSearchResults: true
@@ -44,8 +40,7 @@ class SideBar extends React.Component {
       })
       .catch(err => {
         console.log('Error retrieving search results');
-      })
-    console.log('Search executed!');
+      });
   }
 
   renderSearch() {
@@ -55,8 +50,6 @@ class SideBar extends React.Component {
   }
 
   renderRestaurants() {
-    console.log('which', this.state.showSearchResults);
-    console.log('results', this.state.searchResults);
     return (
         <Results
           restaurants={this.state.showSearchResults 

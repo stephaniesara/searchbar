@@ -7,14 +7,15 @@ class Search extends React.Component {
     super(props);
     this.executeSearch = this.props.executeSearch;
     this.state = {};
-    this.stringFields = ['Name', 'Cuisine', 'Neighborhood']; 
+    this.stringFields = ['Name', 'Neighborhood'];
+    this.cuisines = ['American', 'Chinese', 'Filipino', 'French', 'Italian', 'Japanese', 'Korean', 'Mexican']; 
     this.checkboxFields = ['Vegetarian', 'BYOB'];
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
     var search = document.getElementById('search');
-    Array.from(search.getElementsByTagName('input')).forEach(el => {
+    Array.from(search.getElementsByClassName('query-field')).forEach(el => {
       el.addEventListener('change', this.handleChange);
     });
   }
@@ -25,6 +26,7 @@ class Search extends React.Component {
     this.setState({
       [input.id]: val
     });
+    console.log(this.state);
   }
 
   handleSubmit(event) {
@@ -43,13 +45,21 @@ class Search extends React.Component {
                   />; 
               })
             }
+            <label>Cuisine:</label>
+            <select id="cuisine" className="query-field" >
+              <option value="" ></option>
+              {this.cuisines.map(cuisine => {
+                  return <option value={cuisine}>{cuisine}</option>
+                })
+              }
+            </select>
             <div>
               <label>Price:</label>
               {['$', '$$', '$$$', '$$$$'].map(price => {
                   return (
                       <span>
                         <label htmlFor={price}>{price}</label>
-                        <input type="checkbox" id={price} />
+                        <input type="checkbox" id={price} className="query-field" />
                       </span>
                     );
                 })
