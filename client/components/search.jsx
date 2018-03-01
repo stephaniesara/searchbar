@@ -7,7 +7,7 @@ class Search extends React.Component {
     super(props);
     this.executeSearch = this.props.executeSearch;
     this.state = {};
-    this.stringFields = ['Name', 'Cuisine', 'City']; 
+    this.stringFields = ['Name', 'Cuisine', 'Neighborhood']; 
     this.checkboxFields = ['Vegetarian', 'BYOB'];
     this.handleChange = this.handleChange.bind(this);
   }

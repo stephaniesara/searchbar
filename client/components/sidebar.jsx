@@ -13,6 +13,7 @@ class SideBar extends React.Component {
       recommendations: props.stubdata,
       searchResults: undefined,
       showSearch: false,
+      showSearchResults: false,
       searchButtonVal: 'Search restaurants'
     };
   }
@@ -31,10 +32,15 @@ class SideBar extends React.Component {
         method: 'post',
         data: searchState
       })
-      .then(data => {
-        console.log(this);
+      .then(result => {
         console.log('Success!');
-        console.log(data);
+        console.log(result.data);
+        console.log(this.state);
+        this.setState({
+          searchResults: result.data,
+          showSearchResults: true
+        });
+        console.log(this.state);
       })
       .catch(err => {
         console.log('Error retrieving search results');
@@ -49,9 +55,13 @@ class SideBar extends React.Component {
   }
 
   renderRestaurants() {
+    console.log('which', this.state.showSearchResults);
+    console.log('results', this.state.searchResults);
     return (
         <Results
-          restaurants={this.state.showSearch ? this.state.searchResults : this.state.recommendations}
+          restaurants={this.state.showSearchResults 
+            ? this.state.searchResults 
+            : this.state.recommendations}
         />
       );
   }

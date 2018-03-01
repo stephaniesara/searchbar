@@ -5,13 +5,13 @@ class Results extends React.Component {
 
   constructor(props) {
     super(props);
-    this.restaurants = props.restaurants;
   }
 
   render() {
+    console.log('rendering results');
     return (
-        <div>
-          {this.restaurants.map(entry => {
+        <div id="search-results">
+          {this.props.restaurants.map(entry => {
               return <RestaurantEntry info={entry} />;
             })
           }

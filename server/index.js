@@ -3,6 +3,7 @@ const parser = require('body-parser');
 const morgan = require('morgan');
 const path = require('path');
 const db = require('../database/index.js')
+const Promise = require('bluebird');
 let app = express();
 
 app.use(morgan('dev'));
@@ -11,14 +12,43 @@ app.use(parser.json());
 
 app.use(express.static(path.join(__dirname, '../public')));
 
+db.query = Promise.promisify(db.query);
+
 app.use('/restaurants', function(req, res) {
-  console.log('req.query', req.query);
-  console.log('req.body', req.body);
-  db.query(`select * from open_source_table_about 
-    where city = 'Toronto' and neighborhood = 'Downtown Core' limit 4`, function(err, data) {
-    if (err) throw err;
-    console.log('data:', data);
-  });
+  //const fields = ['name', 'cuisine', 'neighborhood', 'price', 'vegetarian', 'byob'];
+  var searchParams = req.body;
+  var query = [`select iterator, name, cuisine, 
+    neighborhood, price, vegetarian, 
+    byob from open_source_table_about`];
+  var addParams = [];
+  var prices = [];
+  for (field in searchParams) {
+    if (searchParams[field]) {
+      if (field[0] === '$'){
+        prices.push(`price = '${field}'`);
+      } else {
+        addParams.push(`${field} = ${searchParams[field] === true ? 1 : '\'' + searchParams[field] + '\''}`);
+      }
+    }
+  }
+  query.push(' where ');
+  if (addParams.length) {
+    query.push(addParams.join(' and '));
+  }
+  if (prices.length) {
+    if (addParams.length) {
+      query.push(' and ')
+    }
+    query.push('(');
+    query.push(prices.join(' or '));
+    query.push(')');
+  }
+  query.push(' limit 10');
+  query = query.join('');
+  console.log('query:', query);
+  db.query(query)
+    .then(result => res.send(result))
+    .catch(err => console.log('Error querying database'));
 });
 
 app.get('/images/:id', function(req, res) {

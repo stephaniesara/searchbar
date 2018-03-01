@@ -1,36 +1,47 @@
 const mysql = require('mysql');
 const Promise = require('bluebird');
-var con = mysql.createConnection({
+var db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
   database: 'open_source_table'
 });
 
-con.connect(function(err) {
+db.connect(function(err) {
   if (err) throw err;
   console.log('Connected to db!');
-  seed()
 });
 
-con.query = Promise.promisify(con.query);
-const table = 'open_source_table_about';
-const vegetarian = [0, 1];
-const byob = [0, 1];
-const price = ['$', '$$', '$$$', '$$$$'];
-const cuisine = ['Italian', 'Mexican', 'Filipino', 'American', 'French', 'Japanese', 'Chinese', 'Korean'];
+db.query('use open_source_table;');
 
-var seed = function() {
-  con.query(`select * from ${table}`)
-    .then(data => {
-      var queries = [];
-      for (var i = 1; i <= data.length; ++i) {
-        queries.push(con.query({
-            
-          })
-        );
-      }
-      return Promise.all(queries);
+const vegetarian = [0, 0, 0, 1];
+const byob = [0, 0, 0, 0, 0, 1];
+const price = ['$', '$$', '$$', '$$$', '$$$', '$$$$'];
+const cuisine = ['Italian', 'Mexican', 'Filipino', 'American', 'American', 'Italian', 'French', 'Japanese', 'Chinese', 'Korean'];
+
+const gen = item => {
+  return item[Math.floor(Math.random() * item.length)];
+};
+
+db.query = Promise.promisify(db.query);
+
+var inserts = [];
+for (var i = 1; i <= 267; ++i) {
+  inserts.push(db.query(`update open_source_table_about
+      set cuisine = '${gen(cuisine)}',
+      price = '${gen(price)}',
+      vegetarian = ${gen(vegetarian)},
+      byob = ${gen(byob)}
+      where iterator = ${i}`
+    )
+  );
+};
+
+Promise.all(inserts)
+  .then(() => {
+    return db.query(`select * from open_source_table_about limit 3`)
     })
-    .then()
-}
+  .then((result) => {
+    console.log(result);
+    db.end();
+  });
