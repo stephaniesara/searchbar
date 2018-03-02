@@ -15,6 +15,7 @@ const RestaurantEntry = props => {
           {props.info.price}<br/>
           {props.info.cuisine} | {props.info.neighborhood}
         </div>
+        <br/>
       </div>
     );
 }

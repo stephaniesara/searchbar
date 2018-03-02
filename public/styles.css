@@ -58,20 +58,17 @@ fieldset {
 
 .restaurant-entry {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   width: 100%;
 }
 
 .restaurant-description {
-  float: left;
-  display: block;
-  justify-content: center;
+  padding-left: 25%;  
 }
 
 .restaurant-photo {
   clear: right;
-  display: block;
-  justify-content: center;
   width: 75%;
   height: 75%;
   margin: auto;
