@@ -15,11 +15,15 @@
 }
 
 #search-results {
+  width: 250px;
   height: 1000 px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .restaurant-photo {
-  max-width: 200px;
-  max-height: 150px;
+  width: 200px;
+  height: 150px;
+  border-radius: 10px;
+  background-position: center center;
+  background-repeat: no-repeat;
 }

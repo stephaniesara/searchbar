@@ -9,8 +9,8 @@ const RestaurantEntry = props => {
           alt={props.info.iterator} 
         /><br/>
         {props.info.name}<br/>
-        {props.info.cuisine}<br/>
-        {props.info.price}
+        {props.info.price}<br/>
+        {props.info.cuisine} | {props.info.neighborhood}
       </div>
     );
 }
