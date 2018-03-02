@@ -50,13 +50,19 @@ class SideBar extends React.Component {
   }
 
   renderRestaurants() {
-    return (
-        <Results
-          restaurants={this.state.showSearchResults 
-            ? this.state.searchResults 
-            : this.state.recommendations}
-        />
-      );
+    var restaurants = this.state.showSearchResults ?
+      this.state.searchResults : this.state.recommendations;
+    if (!restaurants.length) {
+      return <div>No matching results</div>;
+    } else {
+      return (
+          <Results
+            restaurants={this.state.showSearchResults 
+              ? this.state.searchResults 
+              : this.state.recommendations}
+          />
+        );
+    }
   }
 
   render() {
