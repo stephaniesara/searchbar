@@ -8,7 +8,6 @@ class Results extends React.Component {
   }
 
   render() {
-    console.log('rendering results');
     return (
         <div id="search-results">
           {this.props.restaurants.map(entry => {

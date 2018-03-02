@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Search from './search.jsx';
 import Results from './results.jsx';
+import ScrollArea from 'react-scrollbar';
 import RestaurantEntry from './restaurantentry.jsx';
 
 
@@ -25,18 +26,18 @@ class SideBar extends React.Component {
     });
   }
 
-  executeSearch(searchState) {
+  executeSearch(searchParams) {
     axios({
         url: 'search/restaurants',
         method: 'post',
-        data: searchState
+        data: searchParams
       })
       .then(result => {
         this.setState({
           searchResults: result.data,
           showSearchResults: true
         });
-        console.log(this.state);
+        console.log(this.state.searchResults);
       })
       .catch(err => {
         console.log('Error retrieving search results');
@@ -61,7 +62,7 @@ class SideBar extends React.Component {
 
   render() {
     return (
-        <div>
+        <div id="sidebar">
           <button 
             id="showSearch"
             type="button"
