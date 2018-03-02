@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import Search from './search.jsx';
 import Results from './results.jsx';
-import ScrollArea from 'react-scrollbar';
 import RestaurantEntry from './restaurantentry.jsx';
 
 
