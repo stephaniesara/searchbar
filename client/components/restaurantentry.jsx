@@ -11,9 +11,9 @@ const RestaurantEntry = props => {
         />
         <br/>
         <div className="restaurant-description">
-          {props.info.name}<br/>
-          {props.info.price}<br/>
-          {props.info.cuisine} | {props.info.neighborhood}
+          <div className="description-name">{props.info.name}</div>
+          <div className="description-price">{props.info.price}</div>
+          <div className="description-cuisine">{props.info.cuisine} | {props.info.neighborhood}</div>
         </div>
         <br/>
       </div>
