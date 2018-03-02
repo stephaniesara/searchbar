@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import Search from './search.jsx';
 import Results from './results.jsx';
 import RestaurantEntry from './restaurantentry.jsx';
@@ -12,6 +13,7 @@ class SideBar extends React.Component {
       recommendations: props.stubdata,
       searchResults: undefined,
       showSearch: false,
+      showSearchResults: false,
       searchButtonVal: 'Search restaurants'
     };
   }
@@ -24,7 +26,21 @@ class SideBar extends React.Component {
   }
 
   executeSearch(searchState) {
-    console.log('Search executed!');
+    axios({
+        url: 'search/restaurants',
+        method: 'post',
+        data: searchState
+      })
+      .then(result => {
+        this.setState({
+          searchResults: result.data,
+          showSearchResults: true
+        });
+        console.log(this.state);
+      })
+      .catch(err => {
+        console.log('Error retrieving search results');
+      });
   }
 
   renderSearch() {
@@ -36,7 +52,9 @@ class SideBar extends React.Component {
   renderRestaurants() {
     return (
         <Results
-          restaurants={this.state.showSearch ? this.state.searchResults : this.state.recommendations}
+          restaurants={this.state.showSearchResults 
+            ? this.state.searchResults 
+            : this.state.recommendations}
         />
       );
   }

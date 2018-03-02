@@ -1,11 +1,17 @@
 ## MAC files ##
 .DS_Store
 
+## images ##
+public/images/
+
 ## app.js compiled ##
 public/app.js
 
 ## Example ##
 example/
+
+## app.js compiled ##
+public/app.js
 
 ## NPM ##
 npm
