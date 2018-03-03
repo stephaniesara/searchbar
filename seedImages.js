@@ -3,7 +3,7 @@ const request = require('request');
 const fs = require('fs');
 const Promise = require('bluebird');
 
-Promise.map(images.slice(0, 266), (image, i) => {
+Promise.map(images.slice(0, 267), (image, i) => {
   const writeStream = fs.createWriteStream(`./public/images/${i + 1}.jpg`);
   return new Promise((res, rej) => {
       request.get(image.secure_url)
