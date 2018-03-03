@@ -40,7 +40,9 @@ app.use('/restaurants', function(req, res) {
       }
     }
   }
-  query.push(' where ');
+  if (addParams.length || prices.length) {
+    query.push(' where ');
+  }
   if (addParams.length) {
     query.push(addParams.join(' and '));
   }

@@ -41,7 +41,7 @@ fieldset {
   height: 30px;
   font-family: inherit;
   color: white;
-  background-color: red;
+  background-color: #B63333;
   border-width: 1px;
   margin-bottom: 15px;
 }
@@ -68,11 +68,11 @@ fieldset {
 }
 
 .restaurant-photo {
-  clear: right;
   width: 75%;
   height: 75%;
   margin: auto;
-  border-radius: 10px;
+  border-radius: 5px;
+  overflow: hidden;
   /*
   background-position: center center;
   background-repeat: no-repeat;
