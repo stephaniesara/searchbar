@@ -52,7 +52,7 @@ app.use('/restaurants', function(req, res) {
     query.push(prices.join(' or '));
     query.push(')');
   }
-  query.push(' limit 10');
+  //query.push(' limit 10');
   query = query.join('');
   console.log('query:', query);
   db.query(query)
