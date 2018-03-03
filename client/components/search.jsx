@@ -1,5 +1,6 @@
 import React from 'react';
 import Field from './field.jsx';
+import DatalistField from './datalistfield.jsx';
 
 class Search extends React.Component {
 
@@ -37,18 +38,10 @@ class Search extends React.Component {
     return (
         <form id="search" onSubmit={this.handleSubmit.bind(this)}>
           <fieldset>
-            {this.stringFields.map(field => {
-                return <Field type="text" name={field} />; 
-              })
-            }
-            <label>Cuisine:</label>
-            <select id="cuisine" className="query-field" >
-              <option value="" ></option>
-              {this.props.cuisineOptions.map(cuisine => {
-                  return <option value={cuisine}>{cuisine}</option>
-                })
-              }
-            </select>
+            <Field type='text' name="Name" />
+            {Object.entries(this.props.fields).map(entry => {
+                return <DatalistField name={entry[0]} options={entry[1]} />;
+              })}
             <div>
               <label>Price:</label>
               {['$', '$$', '$$$', '$$$$'].map(price => {
@@ -58,16 +51,11 @@ class Search extends React.Component {
                         <input type="checkbox" id={price} className="query-field" />
                       </span>
                     );
-                })
-              }
+                })}
             </div>
             {this.checkboxFields.map(field => {
-                return <Field
-                    type="checkbox"
-                    name={field}
-                  />;
-              })
-            } 
+                return <Field type='checkbox' name={field} />;
+              })} 
             <label></label>
             <input type="submit" value="Find tables!" />
           </fieldset>
