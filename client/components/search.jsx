@@ -8,7 +8,6 @@ class Search extends React.Component {
     this.executeSearch = this.props.executeSearch;
     this.state = {};
     this.stringFields = ['Name', 'Neighborhood'];
-    this.cuisines = ['American', 'Chinese', 'Filipino', 'French', 'Italian', 'Japanese', 'Korean', 'Mexican']; 
     this.checkboxFields = ['Vegetarian', 'BYOB'];
     this.handleChange = this.handleChange.bind(this);
   }
@@ -39,16 +38,13 @@ class Search extends React.Component {
         <form id="search" onSubmit={this.handleSubmit.bind(this)}>
           <fieldset>
             {this.stringFields.map(field => {
-                return <Field
-                    type="text"
-                    name={field}
-                  />; 
+                return <Field type="text" name={field} />; 
               })
             }
             <label>Cuisine:</label>
             <select id="cuisine" className="query-field" >
               <option value="" ></option>
-              {this.cuisines.map(cuisine => {
+              {this.props.cuisineOptions.map(cuisine => {
                   return <option value={cuisine}>{cuisine}</option>
                 })
               }

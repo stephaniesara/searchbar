@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const path = require('path');
 const db = require('../database/index.js')
 const Promise = require('bluebird');
+const table = 'open_source_table_about';
 let app = express();
 
 app.use(morgan('dev'));
@@ -14,12 +15,20 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 db.query = Promise.promisify(db.query);
 
+app.use('/restaurants/:field', function(req, res) {
+  db.query(`select ${req.params.field} from ${table} 
+      group by ${req.params.field} order by 
+      ${req.params.field} asc`)
+    .then(result => res.send(result))
+    .catch(err => res.send(err));
+});
+
 app.use('/restaurants', function(req, res) {
   //const fields = ['name', 'cuisine', 'neighborhood', 'price', 'vegetarian', 'byob'];
   var searchParams = req.body;
   var query = [`select iterator, name, cuisine, 
     neighborhood, price, vegetarian, 
-    byob from open_source_table_about`];
+    byob from ${table}`];
   var addParams = [];
   var prices = [];
   for (field in searchParams) {
@@ -48,7 +57,7 @@ app.use('/restaurants', function(req, res) {
   console.log('query:', query);
   db.query(query)
     .then(result => res.send(result))
-    .catch(err => console.log('Error querying database'));
+    .catch(err => res.send(err));
 });
 
 app.get('/images/:id', function(req, res) {

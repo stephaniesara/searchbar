@@ -16,6 +16,19 @@ class SideBar extends React.Component {
       showSearchResults: false,
       searchButtonVal: 'Search restaurants'
     };
+    this.getFieldValues('neighborhood');
+    this.getFieldValues('cuisine');
+  }
+
+  getFieldValues(field) {
+    axios.get(`search/restaurants/${field}`)
+      .then(result => {
+        this[field + 'Options'] = result.data.map(entry => entry[field]);
+        console.log(this[field + 'Options']);
+      })
+      .catch(error => {
+        console.log(`Cannot retrieve field: ${field}`);
+      });
   }
 
   showSearch() {
@@ -45,7 +58,13 @@ class SideBar extends React.Component {
 
   renderSearch() {
     if (this.state.showSearch) {
-      return <Search executeSearch={this.executeSearch.bind(this)} />;
+      return (
+          <Search 
+            executeSearch={this.executeSearch.bind(this)} 
+            neighborhoodOptions={this.neighborhoodOptions}
+            cuisineOptions={this.cuisineOptions}
+          />
+        );
     }
   }
 
