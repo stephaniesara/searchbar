@@ -6,6 +6,9 @@
   "engines": {
     "node": ">=6.13.0"
   },
+	"jest": {
+		"testEnvironment": "node"
+	},
   "scripts": {
     "test": "jest",
     "start": "nodemon server/index.js & webpack -d --watch"

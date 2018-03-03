@@ -15,9 +15,9 @@ describe('app server searchbar', function() {
       data: searchParams
     })
       .then(result => {
-        console.log
         expect(result.data.length).toEqual(2);
-        expect(result.data[0].length)
+        expect(result.data[0].name).toEqual('Cocina Economica');
+        expect(result.data[1].name).toEqual('Tacos 101');
       });
   });
 });
