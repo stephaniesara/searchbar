@@ -62,17 +62,6 @@ app.use('/restaurants', function(req, res) {
     .catch(err => res.send(err));
 });
 
-app.get('/images/:id', function(req, res) {
-  console.log('here');
-  res.set('Content-Type', 'image/jpeg').sendFile(path.join(__dirname, `../public/images/${req.params.id}`), function(err, data) {
-    if (err) {
-      console.log('Error sending file');
-    } else {
-      console.log('Sent', req.params.id, data);
-    }
-  });
-});
-
 let port = 3004;
 
 app.listen(port, function() {
