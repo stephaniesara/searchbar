@@ -32,7 +32,7 @@ fieldset {
   width: 100%;
 }
 
-#showSearch, #search-tables {
+#show-search, #search-restaurants {
   width: 100%;
   height: 30px;
   font-family: inherit;
@@ -43,7 +43,7 @@ fieldset {
   outline: none;
 }
 
-#search-tables {
+#search-restaurants {
   margin-top: 15px;
 }
 
@@ -54,7 +54,7 @@ fieldset {
 }
 
 .query-field-container {
-  height: 30px;
+  height: 50px;
   width: 100%;
   border: solid;
   margin: -1px;
@@ -62,7 +62,8 @@ fieldset {
   border-color: lightgray;
   border-collapse: collapse;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .query-field {
@@ -86,8 +87,4 @@ fieldset {
   margin: auto;
   border-radius: 5px;
   overflow: hidden;
-  /*
-  background-position: center center;
-  background-repeat: no-repeat;
-  */
 }

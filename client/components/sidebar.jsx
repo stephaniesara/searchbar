@@ -89,7 +89,7 @@ class SideBar extends React.Component {
     return (
         <div id="sidebar">
           <button 
-            id="showSearch"
+            id="show-search"
             type="button"
             onClick={this.showSearch.bind(this)}
           >

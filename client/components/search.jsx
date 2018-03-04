@@ -8,7 +8,6 @@ class Search extends React.Component {
     super(props);
     this.executeSearch = this.props.executeSearch;
     this.state = {};
-    this.stringFields = ['Name', 'Neighborhood'];
     this.checkboxFields = ['Vegetarian', 'BYOB'];
     this.handleChange = this.handleChange.bind(this);
   }
@@ -57,7 +56,7 @@ class Search extends React.Component {
                 return <Field type='checkbox' name={field} />;
               })} 
             <label></label>
-            <input type="submit" value="Find tables!" id="search-tables" />
+            <input type="submit" value="Find tables!" id="search-restaurants" />
           </fieldset>
         </form>
       );
