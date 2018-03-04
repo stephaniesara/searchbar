@@ -42,7 +42,7 @@ class Search extends React.Component {
             {Object.entries(this.props.fields).map(entry => {
                 return <DatalistField name={entry[0]} options={entry[1]} />;
               })}
-            <div>
+            <div className="query-field-container">
               <label>Price:</label>
               {['$', '$$', '$$$', '$$$$'].map(price => {
                   return (
@@ -57,7 +57,7 @@ class Search extends React.Component {
                 return <Field type='checkbox' name={field} />;
               })} 
             <label></label>
-            <input type="submit" value="Find tables!" />
+            <input type="submit" value="Find tables!" id="search-tables" />
           </fieldset>
         </form>
       );

@@ -5,7 +5,7 @@ const DatalistField = props => {
   const name = props.name.toLowerCase();
 
   return (
-      <div>
+      <div className="query-field-container">
         <label htmlFor={name}>{props.name}:</label>
         <input
           type="text" 
