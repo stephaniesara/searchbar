@@ -56,7 +56,7 @@ class Search extends React.Component {
                 return <Field type='checkbox' name={field} />;
               })} 
             <label></label>
-            <input type="submit" value="Find tables!" id="search-restaurants" />
+            <input type="submit" value="Find restaurants!" id="search-restaurants" />
           </fieldset>
         </form>
       );
