@@ -86,6 +86,10 @@ fieldset {
   padding-left: 25%;  
 }
 
+.description-name {}
+.description-price {}
+.description-cuisine {}
+
 .restaurant-photo {
   width: 75%;
   height: 75%;

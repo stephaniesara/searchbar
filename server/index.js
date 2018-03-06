@@ -24,7 +24,6 @@ app.use('/restaurants/:field', function(req, res) {
 });
 
 app.use('/restaurants', function(req, res) {
-  //const fields = ['name', 'cuisine', 'neighborhood', 'price', 'vegetarian', 'byob'];
   var searchParams = req.body;
   var query = [`select iterator, name, cuisine, 
     neighborhood, price, vegetarian, 

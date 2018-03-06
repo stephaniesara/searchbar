@@ -1,6 +1,7 @@
 import React from 'react';
 import Field from './field.jsx';
 import DatalistField from './datalistfield.jsx';
+import style from '../styles.css';
 
 class Search extends React.Component {
 
@@ -13,8 +14,8 @@ class Search extends React.Component {
   }
 
   componentDidMount() {
-    var search = document.getElementById('search');
-    Array.from(search.getElementsByClassName('input-field')).forEach(el => {
+    var search = document.getElementById(style.search);
+    Array.from(search.getElementsByClassName(style.inputField)).forEach(el => {
       el.addEventListener('change', this.handleChange);
     });
   }
@@ -23,7 +24,7 @@ class Search extends React.Component {
     var input = event.target;
     var val = input.type === 'checkbox' ? input.checked : input.value;
     this.setState({
-      [input.id]: val
+      [input.name]: val
     });
     console.log(this.state);
   }
@@ -35,20 +36,20 @@ class Search extends React.Component {
 
   render() {
     return (
-        <form id="search" onSubmit={this.handleSubmit.bind(this)}>
+        <form id={style.search} onSubmit={this.handleSubmit.bind(this)}>
           <fieldset>
             <Field type='text' name="Name" />
             {Object.entries(this.props.fields).map(entry => {
                 return <DatalistField name={entry[0]} options={entry[1]} />;
               })}
-            <div className="query-field-container">
-              <div className="query-field">
+            <div className={style.queryFieldContainer}>
+              <div className={style.queryField}>
                 <label>Price:</label>
                 {['$', '$$', '$$$', '$$$$'].map(price => {
                     return (
                         <span>
                           <label htmlFor={price}>{price}</label>
-                          <input type="checkbox" id={price} className="query-field" />
+                          <input type="checkbox" name={price} className={style.queryField} />
                         </span>
                       );
                   })}
@@ -58,7 +59,7 @@ class Search extends React.Component {
                 return <Field type='checkbox' name={field} />;
               })} 
             <label></label>
-            <input type="submit" value="Find restaurants!" id="search-restaurants" />
+            <input type="submit" value="Find restaurants!" id={style.searchRestaurants} />
           </fieldset>
         </form>
       );
