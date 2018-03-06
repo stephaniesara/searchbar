@@ -66,9 +66,7 @@ fieldset {
 }
 
 .query-field {
-  height: 50%;
   position: relative;
-  top: 10px;
 }
 
 .input-field {
