@@ -20,17 +20,19 @@ class SideBar extends React.Component {
         Cuisine: undefined
       }
     };
-    Object.keys(this.state.fields).forEach(this.getFieldValues.bind(this));
+    this.getFieldValues(Object.keys(this.state.fields));
   }
 
-  getFieldValues(field) {
-    axios.get(`search/restaurants/${field}`)
-      .then(result => {
-        this.state.fields[field] = result.data.map(entry => entry[field]);
-      })
-      .catch(error => {
-        console.log(`Cannot retrieve field: ${field}`);
-      });
+  getFieldValues(fields) {
+    fields.forEach(field => {
+      axios.get(`search/restaurants/${field}`)
+        .then(result => {
+          this.state.fields[field] = result.data.map(entry => entry[field]);
+        })
+        .catch(error => {
+          console.log(`Cannot retrieve field: ${field}`);
+        });
+    });
   }
 
   showSearch() {
