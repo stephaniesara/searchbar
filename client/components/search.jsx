@@ -16,6 +16,7 @@ class Search extends React.Component {
   componentDidMount() {
     var search = document.getElementById(style.search);
     Array.from(search.getElementsByClassName(style.inputField)).forEach(el => {
+      console.log('here');
       el.addEventListener('change', this.handleChange);
     });
   }
@@ -23,6 +24,7 @@ class Search extends React.Component {
   handleChange(event) {
     var input = event.target;
     var val = input.type === 'checkbox' ? input.checked : input.value;
+    console.log(val);
     this.setState({
       [input.name]: val
     });
@@ -49,7 +51,7 @@ class Search extends React.Component {
                     return (
                         <span>
                           <label htmlFor={price}>{price}</label>
-                          <input type="checkbox" name={price} className={style.queryField} />
+                          <input type="checkbox" name={price} className={style.inputField} />
                         </span>
                       );
                   })}
