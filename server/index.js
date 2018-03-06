@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const path = require('path');
 const db = require('../database/index.js')
 const Promise = require('bluebird');
+const table = 'open_source_table_about';
 let app = express();
 
 app.use(morgan('dev'));
@@ -14,12 +15,20 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 db.query = Promise.promisify(db.query);
 
+app.use('/restaurants/:field', function(req, res) {
+  db.query(`select ${req.params.field} from ${table} 
+      group by ${req.params.field} order by 
+      ${req.params.field} asc`)
+    .then(result => res.send(result))
+    .catch(err => res.send(err));
+});
+
 app.use('/restaurants', function(req, res) {
-  //const fields = ['name', 'cuisine', 'neighborhood', 'price', 'vegetarian', 'byob'];
+  console.log('req method', req.method);
   var searchParams = req.body;
   var query = [`select iterator, name, cuisine, 
     neighborhood, price, vegetarian, 
-    byob from open_source_table_about`];
+    byob from ${table}`];
   var addParams = [];
   var prices = [];
   for (field in searchParams) {
@@ -31,7 +40,9 @@ app.use('/restaurants', function(req, res) {
       }
     }
   }
-  query.push(' where ');
+  if (addParams.length || prices.length) {
+    query.push(' where ');
+  }
   if (addParams.length) {
     query.push(addParams.join(' and '));
   }
@@ -43,23 +54,12 @@ app.use('/restaurants', function(req, res) {
     query.push(prices.join(' or '));
     query.push(')');
   }
-  query.push(' limit 10');
+  //query.push(' limit 10');
   query = query.join('');
   console.log('query:', query);
   db.query(query)
     .then(result => res.send(result))
-    .catch(err => console.log('Error querying database'));
-});
-
-app.get('/images/:id', function(req, res) {
-  console.log('here');
-  res.set('Content-Type', 'image/jpeg').sendFile(path.join(__dirname, `../public/images/${req.params.id}`), function(err, data) {
-    if (err) {
-      console.log('Error sending file');
-    } else {
-      console.log('Sent', req.params.id, data);
-    }
-  });
+    .catch(err => res.send(err));
 });
 
 let port = 3004;

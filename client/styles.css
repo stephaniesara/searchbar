@@ -1,0 +1,99 @@
+body {
+  font-family: sans-serif;
+}
+
+.search input {
+  display: inline-block;
+}
+
+.search label {
+  display: inline-block;
+}
+
+.search div {
+  display: block;
+}
+
+form {
+  width: 20%;
+  margin-bottom: 15px;
+}
+
+fieldset {
+  border: none;
+}
+
+#sidebar {
+  width: 30%;
+  height: 50%;
+}
+
+#search {
+  width: 100%;
+}
+
+#show-search, #search-restaurants {
+  width: 100%;
+  height: 30px;
+  font-family: inherit;
+  color: white;
+  background-color: #B63333;
+  border-width: 1px;
+  margin-bottom: 15px;
+  outline: none;
+}
+
+#search-restaurants {
+  margin-top: 15px;
+}
+
+#search-results {
+  width: 100%;
+  max-height: 900px;
+  overflow: auto;
+}
+
+.query-field-container {
+  height: 50px;
+  width: 100%;
+  border: solid;
+  margin: -1px;
+  border-width: 1px;
+  border-color: lightgray;
+  border-collapse: collapse;
+  display: flex;
+  align-items: center;
+}
+
+.query-field {
+  height: 50%;
+  position: relative;
+  top: 10px;
+}
+
+.input-field {
+  display: inline-block;
+}
+
+.restaurant-entry {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.restaurant-description {
+  padding-left: 25%;  
+}
+
+.description-name {}
+.description-price {}
+.description-cuisine {}
+
+.restaurant-photo {
+  width: 75%;
+  height: 75%;
+  margin: auto;
+  border-radius: 5px;
+  overflow: hidden;
+}

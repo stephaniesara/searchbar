@@ -1,5 +1,6 @@
 import React from 'react';
 import RestaurantEntry from './restaurantentry.jsx';
+import style from '../styles.css';
 
 class Results extends React.Component {
 
@@ -8,9 +9,8 @@ class Results extends React.Component {
   }
 
   render() {
-    console.log('rendering results');
     return (
-        <div id="search-results">
+        <div id={style.searchResults}>
           {this.props.restaurants.map(entry => {
               return <RestaurantEntry info={entry} />;
             })

@@ -1,11 +1,14 @@
 import React from 'react';
+import style from '../styles.css';
 
 const Field = props => {
 
   return (
-      <div>
-        <label htmlFor={props.name.toLowerCase()}>{props.name}:</label>
-        <input type={props.type} id={props.name.toLowerCase()} className="query-field" />
+      <div className={style.queryFieldContainer}>
+        <div className={style.queryField}>
+          <label htmlFor={props.name.toLowerCase()}>{props.name}:</label>
+          <input type={props.type} name={props.name.toLowerCase()} className={style.inputField} />
+        </div>
       </div>
     );
 

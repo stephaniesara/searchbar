@@ -6,18 +6,23 @@
   "engines": {
     "node": ">=6.13.0"
   },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "scripts": {
     "test": "jest",
     "start": "nodemon server/index.js & webpack -d --watch"
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bluebird": "^3.5.1",
     "express": "^4.16.2",
     "jquery": "^3.3.1",
     "mongoose": "^5.0.6",
     "mysql": "^2.15.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-stars": "^2.2.5",
     "request": "^2.83.0"
   },
   "devDependencies": {
@@ -25,10 +30,12 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.10",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor.git",
     "jest": "^22.4.2",
     "morgan": "^1.9.0",
     "nodemon": "^1.15.1",
+    "style-loader": "^0.20.2",
     "webpack": "^3.11.0"
   },
   "version": "1.0.0",

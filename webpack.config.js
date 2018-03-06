@@ -14,6 +14,20 @@ module.exports = {
           presets: ['react', 'env']
         },
       },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              camelCase: true,
+              localIdentName: '[name]__[local]___[hash:base64:5]'
+            }            
+          }
+        ]
+      }
     ],
   },
   output: {
