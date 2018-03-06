@@ -2,8 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Search from './search.jsx';
 import Results from './results.jsx';
-import RestaurantEntry from './restaurantentry.jsx';
-
+import RestaurantEntry from './restaurantentry.jsx';  
 
 class SideBar extends React.Component {
 

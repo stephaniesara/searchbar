@@ -14,7 +14,7 @@ class Search extends React.Component {
 
   componentDidMount() {
     var search = document.getElementById('search');
-    Array.from(search.getElementsByClassName('query-field')).forEach(el => {
+    Array.from(search.getElementsByClassName('input-field')).forEach(el => {
       el.addEventListener('change', this.handleChange);
     });
   }
@@ -42,15 +42,17 @@ class Search extends React.Component {
                 return <DatalistField name={entry[0]} options={entry[1]} />;
               })}
             <div className="query-field-container">
-              <label>Price:</label>
-              {['$', '$$', '$$$', '$$$$'].map(price => {
-                  return (
-                      <span>
-                        <label htmlFor={price}>{price}</label>
-                        <input type="checkbox" id={price} className="query-field" />
-                      </span>
-                    );
-                })}
+              <div className="query-field">
+                <label>Price:</label>
+                {['$', '$$', '$$$', '$$$$'].map(price => {
+                    return (
+                        <span>
+                          <label htmlFor={price}>{price}</label>
+                          <input type="checkbox" id={price} className="query-field" />
+                        </span>
+                      );
+                  })}
+              </div>
             </div>
             {this.checkboxFields.map(field => {
                 return <Field type='checkbox' name={field} />;

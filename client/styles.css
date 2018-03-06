@@ -2,15 +2,15 @@ body {
   font-family: sans-serif;
 }
 
-#search input {
+.search input {
   display: inline-block;
 }
 
-#search label {
+.search label {
   display: inline-block;
 }
 
-#search div {
+.search div {
   display: block;
 }
 
@@ -24,7 +24,7 @@ fieldset {
 }
 
 #sidebar {
-  width: 20%;
+  width: 30%;
   height: 50%;
 }
 
@@ -62,12 +62,17 @@ fieldset {
   border-color: lightgray;
   border-collapse: collapse;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
 }
 
 .query-field {
-  display: flex;
+  height: 50%;
+  position: relative;
+  top: 10px;
+}
+
+.input-field {
+  display: inline-block;
 }
 
 .restaurant-entry {
