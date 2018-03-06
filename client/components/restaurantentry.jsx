@@ -3,6 +3,8 @@ import ShowStars from './showstars.jsx';
 import style from '../styles.css';
 
 const RestaurantEntry = props => {
+  // console.log(props.info);
+  // console.log();
   return (
       <div className={style.restaurantEntry}>
         <img 
@@ -13,6 +15,7 @@ const RestaurantEntry = props => {
         <br/>
         <div className={style.restaurantDescription}>
           <div className={style.descriptionName}>{props.info.name}</div>
+          <ShowStars stars={props.info.stars} />
           <div className={style.descriptionPrice}>{props.info.price}</div>
           <div className={style.descriptionCuisine}>{props.info.cuisine} | {props.info.neighborhood}</div>
         </div>

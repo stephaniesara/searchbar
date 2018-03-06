@@ -5,7 +5,7 @@ const ShowStars = props => {
 
   return (
       <ReactStars
-        count={5}
+        count={props.stars}
         onChange={() => console.log('changed LOL')}
         size={24}
         color2={'#ffd700'} 
