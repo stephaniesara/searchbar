@@ -53,7 +53,6 @@ class SideBar extends React.Component {
           searchResults: result.data,
           showSearchResults: true
         });
-        console.log(this.state.searchResults);
       })
       .catch(err => {
         console.log('Error retrieving search results');

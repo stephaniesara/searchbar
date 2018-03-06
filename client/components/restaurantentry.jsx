@@ -15,8 +15,10 @@ const RestaurantEntry = props => {
         <br/>
         <div className={style.restaurantDescription}>
           <div className={style.descriptionName}>{props.info.name}</div>
+          <div className={style.descriptionStarsPrice}>
           <ShowStars stars={props.info.stars} />
           <div className={style.descriptionPrice}>{props.info.price}</div>
+          </div>
           <div className={style.descriptionCuisine}>{props.info.cuisine} | {props.info.neighborhood}</div>
         </div>
         <br/>

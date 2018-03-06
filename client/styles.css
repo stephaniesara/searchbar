@@ -87,7 +87,11 @@ fieldset {
 }
 
 .description-name {}
-.description-price {}
+.description-stars-price {}
+.description-price{
+  display: inline-block;
+  margin-left: 10px;
+}
 .description-cuisine {}
 
 .restaurant-photo {
