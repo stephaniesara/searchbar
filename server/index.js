@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const path = require('path');
 const db = require('../database/index.js')
 const Promise = require('bluebird');
-const table = 'open_source_table_about';
+const table = 'restaurants';
 let app = express();
 
 app.use(morgan('dev'));
