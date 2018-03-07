@@ -3,7 +3,7 @@ import axios from 'axios';
 import Search from './search.jsx';
 import Results from './results.jsx';
 import RestaurantEntry from './restaurantentry.jsx';
-import style from '../styles.css';  
+import style from '../styles.css';
 
 class SideBar extends React.Component {
 
@@ -54,9 +54,10 @@ class SideBar extends React.Component {
           searchResults: result.data,
           showSearchResults: true
         });
+        console.log(JSON.stringify(result.data));
       })
       .catch(err => {
-        console.log('Error retrieving search results');
+        console.log('Error retrieving search results', err);
       });
   }
 
