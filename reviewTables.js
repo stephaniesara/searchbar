@@ -1,0 +1,130 @@
+module.exports = [  
+  
+  {
+    name: 'details',
+    schema: 
+        `(
+      id varchar(22) NOT NULL,
+      name varchar(255) DEFAULT NULL,
+      neighborhood varchar(255) DEFAULT NULL,
+      address varchar(255) DEFAULT NULL,
+      city varchar(255) DEFAULT NULL,
+      state varchar(255) DEFAULT NULL,
+      postal_code varchar(255) DEFAULT NULL,
+      latitude float DEFAULT NULL,
+      longitude float DEFAULT NULL,
+      stars float DEFAULT NULL,
+      review_count int(11) DEFAULT NULL,
+      is_open tinyint(1) DEFAULT NULL,
+      iterator int(11) NOT NULL AUTO_INCREMENT,
+      stars_food float DEFAULT NULL,
+      stars_service float DEFAULT NULL,
+      stars_ambience float DEFAULT NULL,
+      stars_value float DEFAULT NULL,
+      noise varchar(20) DEFAULT NULL,
+      recommend int(11) DEFAULT NULL,
+      PRIMARY KEY (iterator)
+    ) ENGINE=InnoDB AUTO_INCREMENT=268 DEFAULT CHARSET=utf8;`,
+    dataFile: './details.js',
+    fields: [
+      'id',
+      'name',
+      'neighborhood',
+      'address',
+      'city',
+      'state',
+      'postal_code',
+      'latitude',
+      'longitude',
+      'stars float',
+      'review_count',
+      'is_open',
+      'iterator',
+      'stars_food',
+      'stars_service',
+      'stars_ambience',
+      'stars_value',
+      'noise',
+      'recommend'
+    ]
+  },
+  { 
+    name: 'reviews',
+    schema: 
+        `(
+      id varchar(22) NOT NULL,
+      business_id varchar(22) NOT NULL,
+      user_id varchar(22) NOT NULL,
+      stars int(11) DEFAULT NULL,
+      date datetime DEFAULT NULL,
+      text mediumtext,
+      useful int(11) DEFAULT NULL,
+      funny int(11) DEFAULT NULL,
+      cool int(11) DEFAULT NULL,
+      PRIMARY KEY (id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;`,
+    dataFile: './reviews.js',
+    fields: [
+      'id',
+      'business_id',
+      'user_id',
+      'stars',
+      'date',
+      'text',
+      'useful',
+      'funny',
+      'cool'
+    ]
+  },
+  {
+    name: 'users',
+    schema:
+        `(
+      id varchar(22) NOT NULL,
+      name varchar(255) DEFAULT NULL,
+      review_count int(11) DEFAULT NULL,
+      yelping_since datetime DEFAULT NULL,
+      useful int(11) DEFAULT NULL,
+      funny int(11) DEFAULT NULL,
+      cool int(11) DEFAULT NULL,
+      fans int(11) DEFAULT NULL,
+      average_stars float DEFAULT NULL,
+      compliment_hot int(11) DEFAULT NULL,
+      compliment_more int(11) DEFAULT NULL,
+      compliment_profile int(11) DEFAULT NULL,
+      compliment_cute int(11) DEFAULT NULL,
+      compliment_list int(11) DEFAULT NULL,
+      compliment_note int(11) DEFAULT NULL,
+      compliment_plain int(11) DEFAULT NULL,
+      compliment_cool int(11) DEFAULT NULL,
+      compliment_funny int(11) DEFAULT NULL,
+      compliment_writer int(11) DEFAULT NULL,
+      compliment_photos int(11) DEFAULT NULL,
+      PRIMARY KEY (id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;`,
+    dataFile: './users.js',
+    fields: [
+      'id',
+      'name',
+      'review_count',
+      'yelping_since',
+      'useful',
+      'funny',
+      'cool',
+      'fans',
+      'average_stars',
+      'compliment_hot',
+      'compliment_more',
+      'compliment_profile',
+      'compliment_cute',
+      'compliment_list',
+      'compliment_note',
+      'compliment_plain',
+      'compliment_cool',
+      'compliment_funny',
+      'compliment_writer',
+      'compliment_photos',
+    ]
+  }
+
+];

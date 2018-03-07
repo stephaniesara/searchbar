@@ -55,9 +55,9 @@ var createQuery = function(row) {
 db.query = Promise.promisify(db.query);
 
 getData.then(data => {
-  db.query('drop database if exists open_source_table')
-    .then(() => db.query('create database open_source_table'))
-    .then(() => db.query('use open_source_table'))
+  db.query('drop database if exists open_source_table_search')
+    .then(() => db.query('create database open_source_table_search'))
+    .then(() => db.query('use open_source_table_search'))
     .then(() => db.query('drop table if exists restaurants'))
     .then(() => db.query(`create table restaurants (
       id varchar(22) NOT NULL,
@@ -76,7 +76,7 @@ getData.then(data => {
       stars float DEFAULT NULL,
       review_count int(11) DEFAULT NULL,
       is_open tinyint(1) DEFAULT NULL,
-      iterator int(11) NOT NULL PRIMARY KEY
+      iterator int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;`))
     .then(() => {
       const parsedData = JSON.parse(data);

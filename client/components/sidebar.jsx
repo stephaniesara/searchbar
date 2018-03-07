@@ -54,7 +54,6 @@ class SideBar extends React.Component {
           searchResults: result.data,
           showSearchResults: true
         });
-        console.log(JSON.stringify(result.data));
       })
       .catch(err => {
         console.log('Error retrieving search results', err);
