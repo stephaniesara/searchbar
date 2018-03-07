@@ -18,7 +18,7 @@ db.connect((err) => {
   }
 });
 
-const fields = [
+const strFields = [
   'id',
   'name',
   'cuisine',
@@ -29,7 +29,10 @@ const fields = [
   'address',
   'city',
   'state',
-  'postal_code',
+  'postal_code'
+];
+
+const numFields = [
   'latitude',
   'longitude',
   'stars',
@@ -39,15 +42,24 @@ const fields = [
 ];
 
 var createQuery = function(row) {
-  console.log('row', row);
   let entry = [];
-  for (let i = 0; i < fields.length; ++i) {
-    entry = entry.concat('\'', row[fields[i]], '\'');
+  if (row.neighborhood === 'Leslieville') { console.log('HERERERERE', row) }
+  for (let i = 0; i < strFields.length; ++i) {
+    let str = row[strFields[i]];
+    for (let k = 0; k < str.length; ++k) {
+      if (str[k] === '\'' && str[k] !== '\'') {
+        console.log('HERE\nHERE\nHERE\nHERE\nHERE\nHERE', row);
+        str = str.slice(0, k) + '\'' + str.slice(k + 1);
+      }
+    }
+    entry.push('\'' + str + '\'');
+  }
+  for (let i = 0; i < numFields.length; ++i) {
+    entry.push(row[numFields[i]]);
   }
   return '(' + entry.join(',') + ')';
 };
 
-console.log(db);
 db.query = Promise.promisify(db.query);
 
 getData.then(data => {
@@ -77,13 +89,21 @@ getData.then(data => {
     .then(() => {
       const parsedData = JSON.parse(data);
       return Promise.map(parsedData, function(row) {
-          return db.query(`insert into restaurants values ${createQuery(row)}`);
+          return new Promise((res, rej) => {
+            res(createQuery(row));
+          });
         });
+    })
+    .then((queryStrings) => {
+      return Promise.map(queryStrings, function(entry) {
+          return db.query('insert into restaurants values ' + entry);
+      })
     })
     .then(() => {
       console.log('Finished seeding database!');
       db.end();
-    });
-})
+    })
+    .catch(error => console.log('Error seeding database', error));
+});
   
 
