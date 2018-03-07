@@ -1,7 +1,7 @@
 const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs'));
 
-var getData = fs.readFileAsync('./seeddata.js', 'utf8');
+var getData = fs.readFileAsync('./seeddatastars.js', 'utf8');
 
 const mysql = require('mysql');
 var db = mysql.createConnection({
