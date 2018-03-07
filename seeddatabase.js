@@ -8,7 +8,7 @@ var db = mysql.createConnection({
   url: 'localhost',
   user: 'root',
   password: ''
-})
+});
 
 db.connect((err) => {
   if (err) {
@@ -81,15 +81,8 @@ getData.then(data => {
     .then(() => {
       const parsedData = JSON.parse(data);
       return Promise.map(parsedData, function(row) {
-          return new Promise((res, rej) => {
-            res(createQuery(row));
-          });
+          return db.query('insert into restaurants values ' + createQuery(row));
         });
-    })
-    .then((queryStrings) => {
-      return Promise.map(queryStrings, function(entry) {
-          return db.query('insert into restaurants values ' + entry);
-      })
     })
     .then(() => {
       console.log('Finished seeding database!');
