@@ -29,10 +29,7 @@ const strFields = [
   'address',
   'city',
   'state',
-  'postal_code'
-];
-
-const numFields = [
+  'postal_code',
   'latitude',
   'longitude',
   'stars',
@@ -43,19 +40,14 @@ const numFields = [
 
 var createQuery = function(row) {
   let entry = [];
-  if (row.neighborhood === 'Leslieville') { console.log('HERERERERE', row) }
   for (let i = 0; i < strFields.length; ++i) {
     let str = row[strFields[i]];
-    for (let k = 0; k < str.length; ++k) {
-      if (str[k] === '\'' && str[k] !== '\'') {
-        console.log('HERE\nHERE\nHERE\nHERE\nHERE\nHERE', row);
-        str = str.slice(0, k) + '\'' + str.slice(k + 1);
-      }
+    if (typeof str === 'string') {
+      str = str.replace(/[']/, () => "''" ); // Replace single quote with two single quotes
+      entry.push('\'' + str + '\'');
+    } else {
+      entry.push(str);
     }
-    entry.push('\'' + str + '\'');
-  }
-  for (let i = 0; i < numFields.length; ++i) {
-    entry.push(row[numFields[i]]);
   }
   return '(' + entry.join(',') + ')';
 };
