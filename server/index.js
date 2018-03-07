@@ -24,38 +24,44 @@ app.use('/restaurants/:field', function(req, res) {
 });
 
 app.use('/restaurants', function(req, res) {
-  var searchParams = req.body;
-  var query = [`select iterator, name, cuisine, 
-    neighborhood, price, vegetarian, stars, 
-    byob from ${table}`];
-  var addParams = [];
-  var prices = [];
-  for (field in searchParams) {
-    if (searchParams[field]) {
-      if (field[0] === '$'){
-        prices.push(`price = '${field}'`);
-      } else {
-        addParams.push(`${field} = ${searchParams[field] === true ? 1 : '\'' + searchParams[field] + '\''}`);
+  if (req.body.initial) {
+    var query = `select iterator, name, cuisine,
+      neighborhood, price, vegetarian, stars,
+      byob from ${table} order by stars desc limit 5`;
+  } else {
+    var searchParams = req.body;
+    var query = [`select iterator, name, cuisine, 
+      neighborhood, price, vegetarian, stars, 
+      byob from ${table}`];
+    var addParams = [];
+    var prices = [];
+    for (field in searchParams) {
+      if (searchParams[field]) {
+        if (field[0] === '$'){
+          prices.push(`price = '${field}'`);
+        } else {
+          addParams.push(`${field} = ${searchParams[field] === true ? 1 : '\'' + searchParams[field] + '\''}`);
+        }
       }
     }
-  }
-  if (addParams.length || prices.length) {
-    query.push(' where ');
-  }
-  if (addParams.length) {
-    query.push(addParams.join(' and '));
-  }
-  if (prices.length) {
-    if (addParams.length) {
-      query.push(' and ')
+    if (addParams.length || prices.length) {
+      query.push(' where ');
     }
-    query.push('(');
-    query.push(prices.join(' or '));
-    query.push(')');
+    if (addParams.length) {
+      query.push(addParams.join(' and '));
+    }
+    if (prices.length) {
+      if (addParams.length) {
+        query.push(' and ')
+      }
+      query.push('(');
+      query.push(prices.join(' or '));
+      query.push(')');
+    }
+    //query.push(' limit 10');
+    query = query.join('');
+    console.log('query:', query);
   }
-  //query.push(' limit 10');
-  query = query.join('');
-  console.log('query:', query);
   db.query(query)
     .then(result => res.send(result))
     .catch(err => res.send(err));

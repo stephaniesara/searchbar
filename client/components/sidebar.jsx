@@ -21,6 +21,7 @@ class SideBar extends React.Component {
       }
     };
     this.getFieldValues(Object.keys(this.state.fields));
+    this.executeSearch({initial: true});
   }
 
   getFieldValues(fields) {
