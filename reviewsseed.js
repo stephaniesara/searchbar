@@ -10,17 +10,17 @@ var db = mysql.createConnection({
   password: ''
 });
 
-let makeDatabase = function() {
-  return db.query(`drop database if exists ${databaseName}`)
-    .then(() => db.query(`create database ${databaseName}`))
-    .then(() => db.query(`use ${databaseName}`))
-    .catch(error => console.log('Error making database', error));
-};
+db.connect((err) => {
+  if (err) {
+    console.log('Error connecting to db');
+  } else {
+    console.log('Connected to db!');
+  }
+});
 
-db.connect = Promise.promisify(db.connect);
-db.query = Promise.promisify(db.query);
+db.query(`drop database if exists ${databaseName}`);
 
-let seedTable = function(table) {
+var seedTable = function(table) {
 
   return new Promise((res, rej) => {
 
@@ -42,27 +42,16 @@ let seedTable = function(table) {
       return '(' + entry.join(',') + ')';
     };
 
+    db.query = Promise.promisify(db.query);
 
     getData.then(data => {
-      console.log('got data');
-      db.query(() => {
-        console.log('dropping');
-        console.log(table.name);
-        return db.query(`drop table if exists ${table.name}`);
-      })
+      db.query('create database if not exists open_source_table_reviews')
+        .then(() => db.query('use open_source_table_reviews'))
+        .then(() => db.query(`drop table if exists ${table.name}`))
+        .then(() => db.query(`create table ${table.name} ${table.schema}`))
         .then(() => {
-          console.log('creating');
-          console.log(table.name);
-          console.log(table.schema);
-          return db.query(`create table ${table.name} ${table.schema}`);
-        })
-        .catch(error => console.log('Mysql error', error)) 
-        .then(() => {
-          console.log('here');
           const parsedData = JSON.parse(data);
-          console.log(parsedData.length);
-          return Promise.map(parsedData, function(row, i) {
-              console.log('querying for row #' + i);
+          return Promise.map(parsedData, function(row) {
               return db.query(`insert into ${table.name} values ${createQuery(row)}`);
             });
         })
@@ -80,14 +69,4 @@ let seedTable = function(table) {
     
 };
 
-db.connect()
-  .then(() => {
-    console.log('Connected to db!');
-    return makeDatabase();
-  })
-  .then(() => {console.log('starting'); return Promise.map(tables, seedTable);})
-  .then(() => {
-    console.log('Finished making database');
-    db.end();
-  });
-
+Promise.map(tables, seedTable).then(() => db.end());
