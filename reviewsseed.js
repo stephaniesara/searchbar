@@ -2,6 +2,7 @@ const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs'));
 const tables = require('./reviewTables');
 const mysql = require('mysql');
+const databaseName = 'open_source_table_reviews';
 
 var db = mysql.createConnection({
   url: 'localhost',
@@ -9,54 +10,84 @@ var db = mysql.createConnection({
   password: ''
 });
 
-db.connect((err) => {
-  if (err) {
-    console.log('Error connecting to db');
-  } else {
-    console.log('Connected to db!');
-  }
-});
+let makeDatabase = function() {
+  return db.query(`drop database if exists ${databaseName}`)
+    .then(() => db.query(`create database ${databaseName}`))
+    .then(() => db.query(`use ${databaseName}`))
+    .catch(error => console.log('Error making database', error));
+};
 
-db.query('drop database if exists open_source_table_reviews');
+db.connect = Promise.promisify(db.connect);
+db.query = Promise.promisify(db.query);
 
-var seedTable = function(table) {
+let seedTable = function(table) {
 
-  var getData = fs.readFileAsync(table.dataFile, 'utf8');
+  return new Promise((res, rej) => {
 
-  var createQuery = function(row) {
-    let entry = [];
-    for (let i = 0; i < table.fields.length; ++i) {
-      let str = table.fields.length;
-      if (typeof str === 'string') {
-        str = str.replace(/[']/, () => "''" ); // Replace single quote with two single quotes
-        entry.push('\'' + str + '\'');
-      } else {
+    var getData = fs.readFileAsync(table.dataFile, 'utf8');
+
+    var createQuery = function(row) {
+      let entry = [];
+      for (let i = 0; i < table.fields.length; ++i) {
+        let str = row[table.fields[i]];
+        if (table.fields[i] === 'date' || table.fields[i] === 'yelping_since') {
+          str = str.replace(/[T|Z]/g, char => char === 'T' ? ' ' : '' );
+        }
+        if (typeof str === 'string') {
+          str = str.replace(/['|\\]/g, char => char === "'" ? "''" : '\\\\');
+          str = '\'' + str + '\'';
+        }
         entry.push(str);
       }
-    }
-    return '(' + entry.join(',') + ')';
-  };
+      return '(' + entry.join(',') + ')';
+    };
 
-  db.query = Promise.promisify(db.query);
 
-  getData.then(data => {
-    db.query('create database if not exists open_source_table_reviews')
-      .then(() => db.query('use open_source_table_reviews'))
-      .then(() => db.query(`drop table if exists ${table.name}`))
-      .then(() => db.query(`create table ${table.name} ${table.schema}`))
-      .then(() => {
-        const parsedData = JSON.parse(data);
-        return Promise.map(parsedData, function(row) {
-            return db.query(`insert into ${table.name} values ${createQuery(row)}`);
-          });
+    getData.then(data => {
+      console.log('got data');
+      db.query(() => {
+        console.log('dropping');
+        console.log(table.name);
+        return db.query(`drop table if exists ${table.name}`);
       })
-      .then(() => {
-        console.log(`Finished seeding table: ${table.name}`);
-        db.end();
-      })
-      .catch(error => console.log('Error seeding database', error));
+        .then(() => {
+          console.log('creating');
+          console.log(table.name);
+          console.log(table.schema);
+          return db.query(`create table ${table.name} ${table.schema}`);
+        })
+        .catch(error => console.log('Mysql error', error)) 
+        .then(() => {
+          console.log('here');
+          const parsedData = JSON.parse(data);
+          console.log(parsedData.length);
+          return Promise.map(parsedData, function(row, i) {
+              console.log('querying for row #' + i);
+              return db.query(`insert into ${table.name} values ${createQuery(row)}`);
+            });
+        })
+        .then(() => {
+          console.log(`Finished seeding table: ${table.name}`);
+          res();
+        })
+        .catch(error => {
+          console.log(`Error seeding table ${table.name}`, error);
+          rej(error);
+        });
+    });
+
   });
     
 };
 
-tables.forEach(seedTable);
+db.connect()
+  .then(() => {
+    console.log('Connected to db!');
+    return makeDatabase();
+  })
+  .then(() => {console.log('starting'); return Promise.map(tables, seedTable);})
+  .then(() => {
+    console.log('Finished making database');
+    db.end();
+  });
+

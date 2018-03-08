@@ -2,8 +2,7 @@ module.exports = [
   
   {
     name: 'details',
-    schema: 
-        `(
+    schema: `(
       id varchar(22) NOT NULL,
       name varchar(255) DEFAULT NULL,
       neighborhood varchar(255) DEFAULT NULL,
@@ -25,7 +24,7 @@ module.exports = [
       recommend int(11) DEFAULT NULL,
       PRIMARY KEY (iterator)
     ) ENGINE=InnoDB AUTO_INCREMENT=268 DEFAULT CHARSET=utf8;`,
-    dataFile: './details.js',
+    dataFile: './details.json',
     fields: [
       'id',
       'name',
@@ -36,7 +35,7 @@ module.exports = [
       'postal_code',
       'latitude',
       'longitude',
-      'stars float',
+      'stars',
       'review_count',
       'is_open',
       'iterator',
@@ -50,8 +49,7 @@ module.exports = [
   },
   { 
     name: 'reviews',
-    schema: 
-        `(
+    schema: `(
       id varchar(22) NOT NULL,
       business_id varchar(22) NOT NULL,
       user_id varchar(22) NOT NULL,
@@ -63,7 +61,7 @@ module.exports = [
       cool int(11) DEFAULT NULL,
       PRIMARY KEY (id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;`,
-    dataFile: './reviews.js',
+    dataFile: './reviews.json',
     fields: [
       'id',
       'business_id',
@@ -78,8 +76,7 @@ module.exports = [
   },
   {
     name: 'users',
-    schema:
-        `(
+    schema: `(
       id varchar(22) NOT NULL,
       name varchar(255) DEFAULT NULL,
       review_count int(11) DEFAULT NULL,
@@ -102,7 +99,7 @@ module.exports = [
       compliment_photos int(11) DEFAULT NULL,
       PRIMARY KEY (id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;`,
-    dataFile: './users.js',
+    dataFile: './users.json',
     fields: [
       'id',
       'name',

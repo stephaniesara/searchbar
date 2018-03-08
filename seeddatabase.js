@@ -43,7 +43,7 @@ var createQuery = function(row) {
   for (let i = 0; i < strFields.length; ++i) {
     let str = row[strFields[i]];
     if (typeof str === 'string') {
-      str = str.replace(/[']/, () => "''" ); // Replace single quote with two single quotes
+      str = str.replace(/[']/g, () => "''" ); // Replace single quote with two single quotes
       entry.push('\'' + str + '\'');
     } else {
       entry.push(str);
@@ -76,8 +76,9 @@ getData.then(data => {
       stars float DEFAULT NULL,
       review_count int(11) DEFAULT NULL,
       is_open tinyint(1) DEFAULT NULL,
-      iterator int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;`))
+      iterator int(11) NOT NULL AUTO_INCREMENT,
+      PRIMARY KEY (iterator)
+    ) ENGINE=InnoDB AUTO_INCREMENT=268 DEFAULT CHARSET=utf8;`))
     .then(() => {
       const parsedData = JSON.parse(data);
       return Promise.map(parsedData, function(row) {
